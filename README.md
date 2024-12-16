@@ -1,1 +1,1 @@
-# cosy Booking page for Cosy Homestay."
+#Booking page for Cosy Homestay."
