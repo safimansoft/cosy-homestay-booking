@@ -1,191 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosy Homestay Booking</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: url('your-image.jpg') no-repeat center center fixed;
-            background-size: cover;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        .container {
-            max-width: 500px;
-            margin: 50px auto;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #00796b;
-        }
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            color: #00796b;
-        }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .summary {
-            background: #e0f2f1;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-        .summary p {
-            margin: 5px 0;
-        }
-        .bold {
-            font-weight: bold;
-        }
-        .quotation {
-            display: flex;
-            align-items: center;
-        }
-        .quotation input {
-            margin-right: 10px;
-        }
-        .button {
-            background-color: #00796b;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .button:hover {
-            background-color: #004d40;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosy Homestay Booking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8f8;
+      margin: 0;
+      padding: 20px;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    h2, h3 {
+      text-align: center;
+      color: #00796b;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+    }
+    .form-group input:focus, .form-group select:focus {
+      border-color: #00796b;
+      outline: none;
+    }
+    .quotation {
+      background-color: #e0f7fa;
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .quotation p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .total-price {
+      font-weight: bold;
+      color: #004d40;
+      font-size: 18px;
+    }
+    .whatsapp-button {
+      margin-top: 20px;
+      background-color: #00796b;
+      color: #ffffff;
+      text-align: center;
+      padding: 10px;
+      border-radius: 4px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+    .whatsapp-button:hover {
+      background-color: #004d40;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Cosy Homestay Booking</h1>
-        <form id="bookingForm">
-            <label for="checkin">Check-in Date</label>
-            <input type="date" id="checkin" required>
-
-            <label for="checkout">Check-out Date</label>
-            <input type="date" id="checkout" required>
-
-            <label for="guests">Number of Guests</label>
-            <input type="number" id="guests" min="1" required>
-
-            <label for="name">Name or Company Name</label>
-            <input type="text" id="name">
-
-            <label for="homestay">Homestay Selection</label>
-            <select id="homestay">
-                <option value="Cosy Serimas Homestay">Cosy Serimas Homestay</option>
-                <option value="Cosy Bayu Homestay">Cosy Bayu Homestay</option>
-            </select>
-
-            <label for="comforters">Extra Comforters</label>
-            <select id="comforters">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-            </select>
-
-            <div class="quotation">
-                <input type="checkbox" id="quotation">
-                <label for="quotation">Need Quotation?</label>
-            </div>
-
-            <div class="summary" id="summary">
-                <p>Number of Nights: <span id="nights">0</span></p>
-                <p>Price per Night: RM<span id="pricePerNight">0</span></p>
-                <p>Discounted Amount: -RM<span id="discount">0</span></p>
-                <p>Price Before Discount: RM<span id="beforeDiscount">0</span></p>
-                <p>Final Price per Night: RM<span id="finalPricePerNight">0</span></p>
-                <p class="bold">Price After Discount: RM<span id="total">0</span></p>
-            </div>
-
-            <button type="button" class="button" onclick="sendToWhatsApp()">Send to WhatsApp</button>
-        </form>
+  <div class="container">
+    <h2>Cosy Homestay Booking</h2>
+    <div class="form-group">
+      <label for="checkIn">Check-In Date (DD/MM/YYYY):</label>
+      <input type="date" id="checkIn" required>
+    </div>
+    <div class="form-group">
+      <label for="checkOut">Check-Out Date (DD/MM/YYYY):</label>
+      <input type="date" id="checkOut" required>
+    </div>
+    <div class="form-group">
+      <label for="guests">Number of Guests:</label>
+      <input type="number" id="guests" min="1" max="15" required>
+    </div>
+    <div class="form-group">
+      <label for="name">Name/Company Name:</label>
+      <input type="text" id="name" placeholder="Enter name or company name" required>
+    </div>
+    <div class="form-group">
+      <label for="homestay">Homestay Selection:</label>
+      <select id="homestay">
+        <option value="Cosy Serimas Homestay">Cosy Serimas Homestay</option>
+        <option value="Cosy Bayu Homestay">Cosy Bayu Homestay</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="comforter">Extra Comforter (Toto):</label>
+      <select id="comforter">
+        <option value="0">None</option>
+        <option value="1">1 (RM20)</option>
+        <option value="2">2 (RM40)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="quotation">Need Quotation? (For Company):</label>
+      <select id="quotation">
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
+      </select>
     </div>
 
-    <script>
-        const checkin = document.getElementById('checkin');
-        const checkout = document.getElementById('checkout');
-        const guests = document.getElementById('guests');
-        const comforters = document.getElementById('comforters');
+    <div class="quotation">
+      <h3>Quotation:</h3>
+      <p>Number of Nights: <span id="nights">0</span></p>
+      <p>Price per Night: RM<span id="pricePerNight">0</span></p>
+      <p>Total Price Before Discount: RM<span id="priceBeforeDiscount">0</span></p>
+      <p>Price per Night After Discount: RM<span id="priceAfterDiscount">0</span></p>
+      <p>Discounted Amount: RM<span id="discountAmount">0</span></p>
+      <p class="total-price">Total Price After Discount: RM<span id="totalPrice">0</span></p>
+      <a href="#" id="sendToWhatsApp" class="whatsapp-button">Send to WhatsApp</a>
+    </div>
+  </div>
 
-        const nightsDisplay = document.getElementById('nights');
-        const pricePerNightDisplay = document.getElementById('pricePerNight');
-        const discountDisplay = document.getElementById('discount');
-        const beforeDiscountDisplay = document.getElementById('beforeDiscount');
-        const finalPricePerNightDisplay = document.getElementById('finalPricePerNight');
-        const totalDisplay = document.getElementById('total');
+  <script>
+    const checkIn = document.getElementById('checkIn');
+    const checkOut = document.getElementById('checkOut');
+    const guests = document.getElementById('guests');
+    const comforter = document.getElementById('comforter');
+    const nightsField = document.getElementById('nights');
+    const pricePerNightField = document.getElementById('pricePerNight');
+    const priceBeforeDiscountField = document.getElementById('priceBeforeDiscount');
+    const priceAfterDiscountField = document.getElementById('priceAfterDiscount');
+    const discountAmountField = document.getElementById('discountAmount');
+    const totalPriceField = document.getElementById('totalPrice');
+    const sendToWhatsApp = document.getElementById('sendToWhatsApp');
 
-        function calculatePrice() {
-            const checkinDate = new Date(checkin.value);
-            const checkoutDate = new Date(checkout.value);
+    function calculate() {
+      const checkInDate = new Date(checkIn.value);
+      const checkOutDate = new Date(checkOut.value);
+      const numberOfGuests = parseInt(guests.value) || 0;
+      const extraComforter = parseInt(comforter.value) || 0;
 
-            if (!checkinDate || !checkoutDate || checkinDate >= checkoutDate) {
-                clearSummary();
-                return;
-            }
+      if (isNaN(checkInDate) || isNaN(checkOutDate) || checkOutDate <= checkInDate) {
+        nightsField.textContent = 0;
+        pricePerNightField.textContent = 0;
+        priceBeforeDiscountField.textContent = 0;
+        priceAfterDiscountField.textContent = 0;
+        discountAmountField.textContent = 0;
+        totalPriceField.textContent = 0;
+        return;
+      }
 
-            let currentDate = new Date(checkinDate);
-            const nights = (checkoutDate - checkinDate) / (1000 * 60 * 60 * 24);
-            let beforeDiscount = 0;
+      const nights = (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24);
+      let totalPricePerNight = 0;
+      let discount = 0;
 
-            // Calculate total price based on each night's rate
-            for (let i = 0; i < nights; i++) {
-                const day = currentDate.getDay();
-                beforeDiscount += (day === 5 || day === 6 || day === 0) ? 230 : 200; // Weekend: Friday, Saturday, Sunday
-                currentDate.setDate(currentDate.getDate() + 1);
-            }
+      for (let i = 0; i < nights; i++) {
+        const currentDate = new Date(checkInDate);
+        currentDate.setDate(currentDate.getDate() + i);
+        const day = currentDate.getDay();
+        totalPricePerNight += (day === 0 || day === 6) ? 230 : 200;
+      }
 
-            const discount = nights > 1 ? (nights - 1) * 50 : 0;
-            const finalPrice = beforeDiscount - discount;
-            const comforterCost = parseInt(comforters.value) * 20;
+      if (numberOfGuests > 6) {
+        totalPricePerNight += nights * 20;
+      }
 
-            // Update summary
-            nightsDisplay.textContent = nights;
-            pricePerNightDisplay.textContent = (beforeDiscount / nights).toFixed(2);
-            discountDisplay.textContent = discount;
-            beforeDiscountDisplay.textContent = beforeDiscount;
-            finalPricePerNightDisplay.textContent = (finalPrice / nights).toFixed(2);
-            totalDisplay.textContent = finalPrice + comforterCost;
-        }
+      if (nights > 1) {
+        discount = 50 * (nights - 1);
+      }
 
-        function clearSummary() {
-            nightsDisplay.textContent = 0;
-            pricePerNightDisplay.textContent = 0;
-            discountDisplay.textContent = 0;
-            beforeDiscountDisplay.textContent = 0;
-            finalPricePerNightDisplay.textContent = 0;
-            totalDisplay.textContent = 0;
-        }
+      const totalExtraComforter = extraComforter * 20;
+      const priceAfterDiscount = totalPricePerNight - discount;
+      const totalPrice = priceAfterDiscount + totalExtraComforter;
 
-        function sendToWhatsApp() {
-            const name = document.getElementById('name').value;
-            const homestay = document.getElementById('homestay').value;
-            const quotation = document.getElementById('quotation').checked ? 'Yes' : 'No';
+      nightsField.textContent = nights;
+      pricePerNightField.textContent = Math.round(totalPricePerNight / nights);
+      priceBeforeDiscountField.textContent = Math.round(totalPricePerNight);
+      priceAfterDiscountField.textContent = Math.round(priceAfterDiscount / nights);
+      discountAmountField.textContent = Math.round(discount);
+      totalPriceField.textContent = Math.round(totalPrice);
 
-            const message = `Booking Details:\n- Check-in: ${checkin.value}\n- Check-out: ${checkout.value}\n- Nights: ${nightsDisplay.textContent}\n- Guests: ${guests.value}\n- Name/Company: ${name}\n- Homestay: ${homestay}\n- Comforters: ${comforters.value}\n- Quotation: ${quotation}\n- Total: RM${totalDisplay.textContent}`;
+      const message = `Check-In: ${checkIn.value}, Check-Out: ${checkOut.value}, Guests: ${numberOfGuests}, Nights: ${nights}, Total: RM${Math.round(totalPrice)}`;
+      sendToWhatsApp.href = `https://wa.me/601135385163?text=${encodeURIComponent(message)}`;
+    }
 
-            window.open(`https://wa.me/601135385163?text=${encodeURIComponent(message)}`);
-        }
-
-        checkin.addEventListener('input', calculatePrice);
-        checkout.addEventListener('input', calculatePrice);
-        comforters.addEventListener('change', calculatePrice);
-    </script>
+    document.querySelectorAll('input, select').forEach(field => {
+      field.addEventListener('input', calculate);
+    });
+  </script>
 </body>
 </html>
