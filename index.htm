@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosy Homestay Kuala Lipis Booking</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f6f7fb;
+  color:#222;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  background:white;
+  min-height:100vh;
+}
+
+.hero{
+  height:320px;
+  display:flex;
+  align-items:end;
+  padding:25px;
+  color:white;
+  position:relative;
+  overflow:hidden;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  animation:heroSlideshow 20s infinite;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.10),
+    rgba(0,0,0,0.55)
+  );
+  z-index:1;
+}
+
+.hero h1{
+  position:relative;
+  z-index:2;
+  background:rgba(0,0,0,0.45);
+  backdrop-filter:blur(4px);
+  padding:15px 20px;
+  border-radius:12px;
+  font-size:32px;
+}
+
+@keyframes heroSlideshow{
+  0%{background-image:url("bg1.jpg");}
+  24%{background-image:url("bg1.jpg");}
+
+  25%{background-image:url("bg2.jpg");}
+  49%{background-image:url("bg2.jpg");}
+
+  50%{background-image:url("bg3.jpg");}
+  74%{background-image:url("bg3.jpg");}
+
+  75%{background-image:url("bg4.jpg");}
+  100%{background-image:url("bg4.jpg");}
+}
+
+.content{
+  padding:20px;
+}
+
+.card{
+  background:#fff;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.08);
+}
+
+label{
+  font-weight:bold;
+  display:block;
+  margin-top:14px;
+}
+
+input,select{
+  width:100%;
+  padding:13px;
+  margin-top:6px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:16px;
+}
+
+.toggle{
+  display:flex;
+  gap:10px;
+  margin-top:8px;
+}
+
+.toggle button{
+  flex:1;
+  padding:13px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.active{
+  background:#1f7a4d;
+  color:white;
+}
+
+.inactive{
+  background:#e5e5e5;
+}
+
+.summary{
+  background:#f9fff9;
+  border:2px solid #1f7a4d;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px dashed #ccc;
+  padding:8px 0;
+}
+
+.total{
+  font-size:22px;
+  font-weight:bold;
+  color:#1f7a4d;
+}
+
+.oldprice{
+  text-decoration:line-through;
+  color:#999;
+}
+
+.note{
+  font-size:14px;
+  color:#666;
+}
+
+.whatsapp{
+  width:100%;
+  padding:16px;
+  background:#25D366;
+  color:white;
+  border:none;
+  border-radius:12px;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.disclaimer{
+  font-size:13px;
+  color:#777;
+  text-align:center;
+  padding:20px;
+}
+
+@media(max-width:600px){
+  .hero{
+    height:260px;
+  }
+
+  .hero h1{
+    font-size:24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>Cosy Homestay Kuala Lipis</h1>
+  </div>
+
+  <div class="content">
+
+    <div class="card">
+      <h2>Booking Inquiry</h2>
+
+      <label>Name / Company Name</label>
+      <input type="text" id="name" placeholder="Enter your name or company">
+
+      <label>Homestay Selection</label>
+      <select id="homestay">
+        <option selected>Cosy Bayu Homestay</option>
+        <option>Cosy Serimas Homestay</option>
+      </select>
+
+      <label>Check-In Date</label>
+      <input type="date" id="checkin">
+
+      <label>Check-Out Date</label>
+      <input type="date" id="checkout">
+
+      <label>Number of Guests</label>
+      <input type="number" id="guests" value="1" min="1">
+
+      <label>Request Extra Toto</label>
+      <select id="toto">
+        <option value="0">No Extra Toto</option>
+        <option value="20">1pcs toto RM20</option>
+        <option value="40">2pcs toto RM40</option>
+      </select>
+
+      <p class="note">Toto/Comforter is thoroughly cleaned.</p>
+
+      <label>Require Quotation / Invoice?</label>
+      <div class="toggle">
+        <button id="invoiceNo" class="active" onclick="setInvoice('No')">No</button>
+        <button id="invoiceYes" class="inactive" onclick="setInvoice('Yes')">Yes</button>
+      </div>
+    </div>
+
+    <div class="card summary">
+      <h2>Quotation Summary</h2>
+
+      <div class="row"><span>Name / Company</span><span id="sName">-</span></div>
+      <div class="row"><span>Homestay</span><span id="sHomestay">Cosy Bayu Homestay</span></div>
+      <div class="row"><span>Check-In</span><span id="sCheckin">-</span></div>
+      <div class="row"><span>Check-Out</span><span id="sCheckout">-</span></div>
+      <div class="row"><span>Number of Nights</span><span id="sNights">0</span></div>
+      <div class="row"><span>Guests</span><span id="sGuests">1</span></div>
+      <div class="row"><span>Extra Guest Charge</span><span id="sGuestCharge">RM0</span></div>
+      <div class="row"><span>Extra Toto</span><span id="sToto">No Extra Toto</span></div>
+      <div class="row"><span>Quotation / Invoice</span><span id="sInvoice">No</span></div>
+
+      <br>
+
+      <div class="row">
+        <span>Before Discount</span>
+        <span class="oldprice" id="beforePrice">RM0</span>
+      </div>
+
+      <div class="row total">
+        <span>After Discount</span>
+        <span id="afterPrice">RM0</span>
+      </div>
+
+      <p class="note">
+        This is an estimated price only, not a final price. The final price will be determined by the host.
+      </p>
+
+      <button class="whatsapp" onclick="sendWhatsApp()">Send Booking Inquiry via WhatsApp</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let invoiceChoice = "No";
+
+const fields = ["name","homestay","checkin","checkout","guests","toto"];
+
+fields.forEach(id=>{
+  document.getElementById(id).addEventListener("input", calculate);
+  document.getElementById(id).addEventListener("change", calculate);
+});
+
+function setInvoice(choice){
+  invoiceChoice = choice;
+
+  document.getElementById("invoiceNo").className = choice === "No" ? "active" : "inactive";
+  document.getElementById("invoiceYes").className = choice === "Yes" ? "active" : "inactive";
+
+  calculate();
+}
+
+function getNights(){
+  const checkin = new Date(document.getElementById("checkin").value);
+  const checkout = new Date(document.getElementById("checkout").value);
+
+  if(!document.getElementById("checkin").value || !document.getElementById("checkout").value){
+    return 0;
+  }
+
+  const diff = checkout - checkin;
+  const nights = diff / (1000 * 60 * 60 * 24);
+
+  return nights > 0 ? nights : 0;
+}
+
+function originalRate(nights){
+  if(nights === 1) return 230;
+  if(nights === 2) return 220;
+  if(nights >= 3) return 200;
+  return 0;
+}
+
+function promoRate(nights){
+  if(nights === 1) return 200;
+  if(nights === 2) return 190;
+  if(nights >= 3) return 180;
+  return 0;
+}
+
+function calculate(){
+  const name = document.getElementById("name").value || "-";
+  const homestay = document.getElementById("homestay").value;
+  const checkin = document.getElementById("checkin").value || "-";
+  const checkout = document.getElementById("checkout").value || "-";
+  const guests = parseInt(document.getElementById("guests").value) || 0;
+  const totoSelect = document.getElementById("toto");
+  const totoText = totoSelect.options[totoSelect.selectedIndex].text;
+  const totoPrice = parseInt(totoSelect.value);
+
+  const nights = getNights();
+
+  const extraGuestCharge = guests > 8 ? (guests - 8) * 10 : 0;
+
+  const before = nights * originalRate(nights) + extraGuestCharge + totoPrice;
+  const after = nights * promoRate(nights) + extraGuestCharge + totoPrice;
+
+  document.getElementById("sName").innerText = name;
+  document.getElementById("sHomestay").innerText = homestay;
+  document.getElementById("sCheckin").innerText = checkin;
+  document.getElementById("sCheckout").innerText = checkout;
+  document.getElementById("sNights").innerText = nights;
+  document.getElementById("sGuests").innerText = guests;
+  document.getElementById("sGuestCharge").innerText = "RM" + extraGuestCharge;
+  document.getElementById("sToto").innerText = totoText;
+  document.getElementById("sInvoice").innerText = invoiceChoice;
+  document.getElementById("beforePrice").innerText = "RM" + before;
+  document.getElementById("afterPrice").innerText = "RM" + after;
+}
+
+function sendWhatsApp(){
+  calculate();
+
+  const message =
+`Cosy Homestay Kuala Lipis Booking Inquiry
+
+Name / Company: ${document.getElementById("sName").innerText}
+Homestay: ${document.getElementById("sHomestay").innerText}
+Check-In: ${document.getElementById("sCheckin").innerText}
+Check-Out: ${document.getElementById("sCheckout").innerText}
+Number of Nights: ${document.getElementById("sNights").innerText}
+Guests: ${document.getElementById("sGuests").innerText}
+Extra Guest Charge: ${document.getElementById("sGuestCharge").innerText}
+Extra Toto: ${document.getElementById("sToto").innerText}
+Quotation / Invoice Required: ${document.getElementById("sInvoice").innerText}
+
+Before Discount: ${document.getElementById("beforePrice").innerText}
+After Discount: ${document.getElementById("afterPrice").innerText}
+
+Note: This is an estimated price only. Final price will be determined by the host.`;
+
+  const phone = "601135385163";
+  const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+  window.open(url, "_blank");
+}
+
+calculate();
+</script>
+
+</body>
+</html>
