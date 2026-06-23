@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosy Homestay Kuala Lipis Booking</title>
+
+<style>
+:root{
+  --primary:#1f7a4d;
+  --primary-dark:#155c39;
+  --accent:#d9a441;
+  --bg:#f6f7fb;
+  --text:#222;
+  --muted:#666;
+  --line:#e5e7eb;
+  --danger:#b42318;
+  --danger-bg:#fff1f0;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  background:white;
+  min-height:100vh;
+}
+
+.hero{
+  height:320px;
+  display:flex;
+  align-items:end;
+  padding:25px;
+  color:white;
+  position:relative;
+  overflow:hidden;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  animation:heroSlideshow 20s infinite;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,0.10),rgba(0,0,0,0.55));
+  z-index:1;
+}
+
+.hero h1{
+  position:relative;
+  z-index:2;
+  background:rgba(0,0,0,0.45);
+  backdrop-filter:blur(4px);
+  padding:15px 20px;
+  border-radius:12px;
+  font-size:32px;
+}
+
+@keyframes heroSlideshow{
+  0%{background-image:url("bg1.jpg");}
+  24%{background-image:url("bg1.jpg");}
+  25%{background-image:url("bg2.jpg");}
+  49%{background-image:url("bg2.jpg");}
+  50%{background-image:url("bg3.jpg");}
+  74%{background-image:url("bg3.jpg");}
+  75%{background-image:url("bg4.jpg");}
+  100%{background-image:url("bg4.jpg");}
+}
+
+.content{
+  padding:22px;
+}
+
+.card{
+  background:#fff;
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:22px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.08);
+  border:1px solid #f0f2f5;
+}
+
+.card h2{
+  margin-top:0;
+  margin-bottom:16px;
+  color:#1f2937;
+}
+
+.brochure-card{
+  background:linear-gradient(135deg,#f9fff9,#ffffff);
+  border:1px solid #d9eadf;
+}
+
+.brochure-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.brochure-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:56px;
+  padding:14px 16px;
+  background:var(--primary);
+  color:#fff;
+  text-decoration:none;
+  border-radius:14px;
+  font-weight:bold;
+  text-align:center;
+  transition:transform .2s ease, background .2s ease;
+}
+
+.brochure-btn:hover{
+  transform:translateY(-2px);
+  background:var(--primary-dark);
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  align-items:end;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group.full{
+  grid-column:1 / -1;
+}
+
+label{
+  font-weight:bold;
+  display:block;
+  margin-bottom:7px;
+  color:#374151;
+}
+
+input,select{
+  width:100%;
+  padding:13px;
+  border:1px solid #cfd6df;
+  border-radius:11px;
+  font-size:16px;
+  background:#fff;
+  min-height:48px;
+}
+
+input:focus,select:focus{
+  outline:none;
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(31,122,77,.12);
+}
+
+.toggle{
+  display:flex;
+  gap:10px;
+  margin-top:0;
+}
+
+.toggle button{
+  flex:1;
+  padding:13px;
+  border:none;
+  border-radius:11px;
+  font-size:16px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.active{
+  background:var(--primary);
+  color:white;
+}
+
+.inactive{
+  background:#e5e7eb;
+  color:#333;
+}
+
+.summary{
+  background:#f9fff9;
+  border:2px solid var(--primary);
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  border-bottom:1px dashed #ccc;
+  padding:9px 0;
+}
+
+.row span:first-child{
+  color:#374151;
+  font-weight:600;
+}
+
+.row span:last-child{
+  text-align:right;
+  font-weight:600;
+}
+
+.total{
+  font-size:22px;
+  font-weight:bold;
+  color:var(--primary);
+}
+
+.oldprice{
+  text-decoration:line-through;
+  color:#999;
+}
+
+.note{
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.warning{
+  display:none;
+  margin-top:14px;
+  padding:13px 14px;
+  border-radius:12px;
+  background:var(--danger-bg);
+  color:var(--danger);
+  border:1px solid #f7c7c2;
+  font-weight:bold;
+  line-height:1.45;
+}
+
+.whatsapp{
+  width:100%;
+  padding:16px;
+  background:#25D366;
+  color:white;
+  border:none;
+  border-radius:12px;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.disclaimer{
+  font-size:13px;
+  color:#777;
+  text-align:center;
+  padding:20px;
+}
+
+
+
+.music-toggle{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:999;
+  width:auto;
+  min-width:126px;
+  padding:12px 16px;
+  border:none;
+  border-radius:999px;
+  background:rgba(31,122,77,.94);
+  color:#fff;
+  font-weight:bold;
+  box-shadow:0 10px 24px rgba(0,0,0,.22);
+  cursor:pointer;
+}
+
+.name-line{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:18px;
+  grid-column:1 / -1;
+  align-items:end;
+}
+
+.invoice-group{
+  min-height:77px;
+}
+
+.invoice-group .toggle{
+  min-height:48px;
+}
+
+.form-note{
+  grid-column:1 / -1;
+  margin:-6px 0 0;
+}
+
+@media(max-width:700px){
+  .name-line{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px){
+  .form-grid,
+  .brochure-buttons{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+  .hero{height:260px;}
+  .hero h1{font-size:24px;}
+  .content{padding:16px;}
+  .row{font-size:14px;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" autoplay loop preload="auto">
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+
+<button id="musicToggle" class="music-toggle" type="button">🔇 Music Off</button>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>Cosy Homestay Kuala Lipis</h1>
+  </div>
+
+  <div class="content">
+
+    <div class="card brochure-card">
+      <h2>Download Homestay Brochure</h2>
+      <p class="note">View each homestay brochure before submitting your booking inquiry.</p>
+      <div class="brochure-buttons">
+        <a class="brochure-btn" href="brochure1.pdf" target="_blank" rel="noopener">📄 Download Cosy Serimas Brochure (PDF)</a>
+        <a class="brochure-btn" href="brochure2.pdf" target="_blank" rel="noopener">📄 Download Cosy Bayu Brochure (PDF)</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Booking Inquiry</h2>
+
+      <div class="form-grid">
+        <div class="name-line">
+          <div class="form-group">
+            <label>Title</label>
+            <select id="titleChoice">
+              <option value="None" selected>None / Company</option>
+              <option value="Mr">Mr</option>
+              <option value="Ms">Ms</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Name / Company Name</label>
+            <input type="text" id="name" placeholder="Enter name or company">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Homestay Selection</label>
+          <select id="homestay">
+            <option selected>Cosy Bayu Homestay</option>
+            <option>Cosy Serimas Homestay</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Number of Guests</label>
+          <select id="guests">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Check-In Date</label>
+          <input type="date" id="checkin">
+        </div>
+
+        <div class="form-group">
+          <label>Check-Out Date</label>
+          <input type="date" id="checkout">
+        </div>
+
+        <div class="form-group">
+          <label>Request Extra Toto</label>
+          <select id="toto">
+            <option value="0">No Extra Toto</option>
+            <option value="20">1pcs toto RM20</option>
+            <option value="40">2pcs toto RM40</option>
+          </select>
+        </div>
+
+        <div class="form-group invoice-group">
+          <label>Require Quotation / Invoice?</label>
+          <div class="toggle">
+            <button id="invoiceNo" class="active" onclick="setInvoice('No')" type="button">No</button>
+            <button id="invoiceYes" class="inactive" onclick="setInvoice('Yes')" type="button">Yes</button>
+          </div>
+        </div>
+
+        <p class="note form-note">Toto/Comforter is thoroughly cleaned.</p>
+      </div>
+
+      <div id="dateWarning" class="warning">
+        Date alert: Check-out date should be after check-in date. You may continue if this was intentional, but the quotation will not calculate nights correctly until the dates are corrected.
+      </div>
+    </div>
+
+    <div class="card summary">
+      <h2>Quotation Summary</h2>
+
+      <div class="row"><span>P.O.#</span><span id="sPO">-</span></div>
+      <div class="row"><span>BTD</span><span id="sBTD">-</span></div>
+      <div class="row"><span>Name / Company</span><span id="sName">-</span></div>
+      <div class="row"><span>Homestay</span><span id="sHomestay">Cosy Bayu Homestay</span></div>
+      <div class="row"><span>Check-In</span><span id="sCheckin">-</span></div>
+      <div class="row"><span>Check-Out</span><span id="sCheckout">-</span></div>
+      <div class="row"><span>Number of Nights</span><span id="sNights">0</span></div>
+      <div class="row"><span>Price Per Night</span><span id="sPricePerNight">RM0</span></div>
+      <div class="row"><span>Guests</span><span id="sGuests">1</span></div>
+      <div class="row"><span>Extra Guest Charge</span><span id="sGuestCharge">RM0</span></div>
+      <div class="row"><span>Extra Toto</span><span id="sToto">No Extra Toto</span></div>
+      <div class="row"><span>Quotation / Invoice</span><span id="sInvoice">No</span></div>
+
+      <br>
+
+      <div class="row">
+        <span>Before Discount</span>
+        <span class="oldprice" id="beforePrice">RM0</span>
+      </div>
+
+      <div class="row total">
+        <span>After Discount</span>
+        <span id="afterPrice">RM0</span>
+      </div>
+
+      <p class="note">
+        This is an estimated price only, not a final price. The final price will be determined by the host.
+      </p>
+
+      <button class="whatsapp" onclick="sendWhatsApp()">Send Booking Inquiry via WhatsApp</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let invoiceChoice = "No";
+let dateAlertShown = false;
+
+const fields = ["titleChoice","name","homestay","checkin","checkout","guests","toto"];
+
+fields.forEach(id=>{
+  document.getElementById(id).addEventListener("input", calculate);
+  document.getElementById(id).addEventListener("change", calculate);
+});
+
+function setInvoice(choice){
+  invoiceChoice = choice;
+  document.getElementById("invoiceNo").className = choice === "No" ? "active" : "inactive";
+  document.getElementById("invoiceYes").className = choice === "Yes" ? "active" : "inactive";
+  calculate();
+}
+
+function getPrefix(homestay){
+  return homestay === "Cosy Serimas Homestay" ? "CSH" : "CBH";
+}
+
+function formatDDMMYY(dateStr){
+  if(!dateStr) return "000000";
+  const [year, month, day] = dateStr.split("-");
+  return day + month + year.slice(-2);
+}
+
+function formatDisplayDate(dateStr){
+  if(!dateStr) return "-";
+  const date = new Date(dateStr + "T00:00:00");
+  return date.toLocaleDateString("en-GB", {
+    weekday:"short",
+    day:"2-digit",
+    month:"short",
+    year:"numeric"
+  });
+}
+
+function getRawNights(){
+  const checkinValue = document.getElementById("checkin").value;
+  const checkoutValue = document.getElementById("checkout").value;
+
+  if(!checkinValue || !checkoutValue) return 0;
+
+  const checkin = new Date(checkinValue + "T00:00:00");
+  const checkout = new Date(checkoutValue + "T00:00:00");
+  const diff = checkout - checkin;
+  return diff / (1000 * 60 * 60 * 24);
+}
+
+function getNights(){
+  const nights = getRawNights();
+  return nights > 0 ? nights : 0;
+}
+
+function originalRate(nights){
+  if(nights === 1) return 230;
+  if(nights === 2) return 220;
+  if(nights >= 3) return 200;
+  return 0;
+}
+
+function promoRate(nights){
+  if(nights === 1) return 200;
+  if(nights === 2) return 190;
+  if(nights >= 3) return 180;
+  return 0;
+}
+
+function calculate(){
+  const titleChoice = document.getElementById("titleChoice").value;
+  const rawName = document.getElementById("name").value || "-";
+  const name = rawName === "-" || titleChoice === "None" ? rawName : titleChoice + " " + rawName;
+  const homestay = document.getElementById("homestay").value;
+  const checkinValue = document.getElementById("checkin").value;
+  const checkoutValue = document.getElementById("checkout").value;
+  const checkin = checkinValue || "-";
+  const checkout = checkoutValue || "-";
+  const guests = parseInt(document.getElementById("guests").value) || 1;
+  const totoSelect = document.getElementById("toto");
+  const totoText = totoSelect.options[totoSelect.selectedIndex].text;
+  const totoPrice = parseInt(totoSelect.value) || 0;
+  const rawNights = getRawNights();
+  const nights = getNights();
+
+  const warning = document.getElementById("dateWarning");
+  if(checkinValue && checkoutValue && rawNights <= 0){
+    warning.style.display = "block";
+    if(!dateAlertShown){
+      alert("Date alert: Check-out date should be after check-in date. You may continue if intentional, but the quotation will show 0 nights until corrected.");
+      dateAlertShown = true;
+    }
+  }else{
+    warning.style.display = "none";
+    dateAlertShown = false;
+  }
+
+  const extraGuestCharge = guests > 8 ? (guests - 8) * 10 : 0;
+  const pricePerNight = promoRate(nights);
+  const before = nights * originalRate(nights) + extraGuestCharge + totoPrice;
+  const after = nights * pricePerNight + extraGuestCharge + totoPrice;
+
+  const po = nights > 0 && checkinValue ? `${getPrefix(homestay)}-${formatDDMMYY(checkinValue)}-${nights}N` : "-";
+  const btd = nights > 0 && checkinValue && checkoutValue
+    ? `${formatDisplayDate(checkinValue)} to ${formatDisplayDate(checkoutValue)} (${nights + 1}D${nights}N)`
+    : "-";
+
+  document.getElementById("sPO").innerText = po;
+  document.getElementById("sBTD").innerText = btd;
+  document.getElementById("sName").innerText = name;
+  document.getElementById("sHomestay").innerText = homestay;
+  document.getElementById("sCheckin").innerText = checkin;
+  document.getElementById("sCheckout").innerText = checkout;
+  document.getElementById("sNights").innerText = nights;
+  document.getElementById("sPricePerNight").innerText = "RM" + pricePerNight;
+  document.getElementById("sGuests").innerText = guests;
+  document.getElementById("sGuestCharge").innerText = "RM" + extraGuestCharge;
+  document.getElementById("sToto").innerText = totoText;
+  document.getElementById("sInvoice").innerText = invoiceChoice;
+  document.getElementById("beforePrice").innerText = "RM" + before;
+  document.getElementById("afterPrice").innerText = "RM" + after;
+}
+
+function sendWhatsApp(){
+  calculate();
+
+  const message =
+`Cosy Homestay Kuala Lipis Booking Inquiry
+
+P.O.#: ${document.getElementById("sPO").innerText}
+BTD: ${document.getElementById("sBTD").innerText}
+Name / Company: ${document.getElementById("sName").innerText}
+Homestay: ${document.getElementById("sHomestay").innerText}
+Check-In: ${document.getElementById("sCheckin").innerText}
+Check-Out: ${document.getElementById("sCheckout").innerText}
+Number of Nights: ${document.getElementById("sNights").innerText}
+Price Per Night: ${document.getElementById("sPricePerNight").innerText}
+Guests: ${document.getElementById("sGuests").innerText}
+Extra Guest Charge: ${document.getElementById("sGuestCharge").innerText}
+Extra Toto: ${document.getElementById("sToto").innerText}
+Quotation / Invoice Required: ${document.getElementById("sInvoice").innerText}
+
+Before Discount: ${document.getElementById("beforePrice").innerText}
+After Discount: ${document.getElementById("afterPrice").innerText}
+
+Note: This is an estimated price only. Final price will be determined by the host.`;
+
+  const phone = "601135385163";
+  const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+  window.open(url, "_blank");
+}
+
+
+const bgMusic = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
+let musicPlaying = false;
+
+function updateMusicButton(){
+  musicToggle.innerText = musicPlaying ? "🔊 Music On" : "🔇 Music Off";
+}
+
+async function startMusic(){
+  try{
+    bgMusic.volume = 0.35;
+    await bgMusic.play();
+    musicPlaying = true;
+    localStorage.setItem("cosyMusic", "on");
+  }catch(e){
+    musicPlaying = false;
+  }
+  updateMusicButton();
+}
+
+function stopMusic(){
+  bgMusic.pause();
+  musicPlaying = false;
+  localStorage.setItem("cosyMusic", "off");
+  updateMusicButton();
+}
+
+window.addEventListener("load", async ()=>{
+  const preference = localStorage.getItem("cosyMusic");
+  if(preference !== "off"){
+    await startMusic();
+  }else{
+    stopMusic();
+  }
+});
+
+document.addEventListener("click", async ()=>{
+  if(!musicPlaying && localStorage.getItem("cosyMusic") !== "off"){
+    await startMusic();
+  }
+}, { once:true });
+
+musicToggle.addEventListener("click", async ()=>{
+  if(musicPlaying){
+    stopMusic();
+  }else{
+    await startMusic();
+  }
+});
+
+updateMusicButton();
+
+calculate();
+</script>
+
+</body>
+</html>
